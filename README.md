@@ -2,7 +2,7 @@
 
 A real-time chat application with battle royale features built with FastAPI and Socket.IO.
 
-## 🚀 Quick Setup for Collaborators
+## Quick Setup for Collaborators
 
 ### Prerequisites
 - Python 3.8+ installed
@@ -47,7 +47,7 @@ A real-time chat application with battle royale features built with FastAPI and 
    - Check API docs at `http://localhost:8000/docs`
    - Health check at `http://localhost:8000/health`
 
-## 🔧 Development Workflow
+## Development Workflow
 
 **Every time you start working:**
 ```bash
@@ -70,7 +70,7 @@ python main.py
 deactivate
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 frenemies-battle-royale/
@@ -83,7 +83,7 @@ frenemies-battle-royale/
 └── tests/              # Test files (future)
 ```
 
-## 🛠️ Current Features
+## Current Features
 
 - ✅ FastAPI server with hot reload
 - ✅ Socket.IO integration for real-time chat
@@ -92,7 +92,7 @@ frenemies-battle-royale/
 - ✅ Room-based chat system
 - ✅ User join/leave notifications
 
-## 🎮 API Endpoints
+## API Endpoints
 
 - `GET /` - Root endpoint with API info
 - `GET /health` - Health check
@@ -101,7 +101,7 @@ frenemies-battle-royale/
 - `GET /api/rooms/{room_id}` - Get room information
 - `GET /api/status` - Server status and statistics
 
-## 🔌 Socket.IO Events
+## Socket.IO Events
 
 - `connect` - Client connection
 - `disconnect` - Client disconnection
@@ -110,7 +110,7 @@ frenemies-battle-royale/
 - `send_message` - Send a message to a room
 - `get_room_messages` - Get recent room messages
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **If `pip install -r requirements.txt` fails:**
 ```bash
@@ -126,7 +126,7 @@ pip install -r requirements.txt
 - On Windows: Use Command Prompt instead of Git Bash
 - Make sure you're in the project directory
 
-## 📝 Contributing
+## Contributing
 
 1. Create a new branch for your feature
 2. Make your changes
@@ -136,4 +136,4 @@ pip install -r requirements.txt
 
 ---
 
-**Happy coding! 🚀**
+**Happy coding!**
