@@ -85,12 +85,12 @@ frenemies-battle-royale/
 
 ## Current Features
 
-- ✅ FastAPI server with hot reload
-- ✅ Socket.IO integration for real-time chat
-- ✅ Health check endpoint
-- ✅ Interactive API documentation
-- ✅ Room-based chat system
-- ✅ User join/leave notifications
+- FastAPI server with hot reload
+- Socket.IO integration for real-time chat
+- Health check endpoint
+- Interactive API documentation
+- Room-based chat system
+- User join/leave notifications
 
 ## API Endpoints
 
