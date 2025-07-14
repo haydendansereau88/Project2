@@ -1,16 +1,25 @@
 # Frenemies Battle Royale
 
-A real-time chat application with battle royale features built with FastAPI (backend) and React (frontend).
+A mobile game where players predict winners in absurd AI-judged battles. Built with FastAPI (backend) and React Native (mobile frontend).
+
+## Game Concept
+
+Players compete in Kahoot-style prediction games where:
+- AI creates ridiculous battle scenarios ("Shakespeare vs Gordon Ramsay in a cooking competition")
+- Players vote on who would win
+- AI judge analyzes and decides winners using algorithms and data
+- Players earn points for correct predictions
+- AI provides entertaining explanations for its decisions
 
 ## Prerequisites
 
 - Python 3.8+ installed
-- Node.js 18+ and npm installed
+- Node.js 18+ and npm installed  
 - Git installed
+- **For iOS development:** Mac with Xcode
+- **For Android development:** Android Studio
 
-## Complete Setup Instructions
-
-### Backend Setup
+## Backend Setup
 
 1. **Clone the repository**
    ```bash
@@ -46,44 +55,51 @@ A real-time chat application with battle royale features built with FastAPI (bac
    
    The backend will run on `http://localhost:8000`
 
-### Frontend Setup
+## Mobile Frontend Setup
 
-1. **Navigate to frontend directory**
+1. **Navigate to mobile app directory**
    ```bash
-   cd frontend
+   cd FrenemiesMobile
    ```
 
-2. **Install Node.js dependencies**
+2. **Install React Native dependencies**
    ```bash
    npm install
    ```
 
-3. **Start the frontend development server**
+3. **Install additional packages**
    ```bash
-   npm run dev
+   npm install socket.io-client @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context react-native-vector-icons
    ```
-   
-   The frontend will run on `http://localhost:5173`
 
-## Running Both Servers
+4. **For iOS (Mac only):**
+   ```bash
+   cd ios
+   pod install
+   cd ..
+   npx react-native run-ios
+   ```
 
-For the full application, you need both servers running:
+5. **For Android:**
+   ```bash
+   npx react-native run-android
+   ```
 
-**Terminal 1 (Backend):**
+## Development Workflow
+
+**Start Backend:**
 ```bash
 # From project root
 source venv/bin/activate  # (or venv\Scripts\activate on Windows)
 python main.py
 ```
 
-**Terminal 2 (Frontend):**
+**Start Mobile App:**
 ```bash
 # From project root
-cd frontend
-npm run dev
+cd FrenemiesMobile
+npx react-native run-ios    # or run-android
 ```
-
-Then open your browser to `http://localhost:5173`
 
 ## Project Structure
 
@@ -92,96 +108,78 @@ Project2/
 ├── main.py                 # FastAPI backend server
 ├── requirements.txt        # Python dependencies
 ├── venv/                   # Python virtual environment
-├── api/                    # API modules (future expansion)
-├── models/                 # Data models (future expansion)
-├── utils/                  # Utility functions (future expansion)
-├── tests/                  # Test files (future expansion)
-└── frontend/               # React frontend application
+├── battle_app_dev_plan.md  # Development roadmap
+└── FrenemiesMobile/        # React Native mobile app
     ├── src/
-    │   ├── components/     # React components
-    │   │   ├── Header.jsx
-    │   │   ├── Sidebar.jsx
-    │   │   ├── ChatRoom.jsx
-    │   │   ├── UserJoin.jsx
-    │   │   └── MessageBubble.jsx
-    │   ├── App.jsx         # Main React app
-    │   └── index.css       # Tailwind CSS styles
-    ├── package.json        # Node.js dependencies
-    └── tailwind.config.js  # Tailwind configuration
+    │   ├── components/     # React Native components (to be built)
+    │   ├── screens/        # App screens (to be built)
+    │   └── services/       # API and Socket.IO services
+    ├── ios/                # iOS-specific files
+    ├── android/            # Android-specific files
+    └── package.json        # Node.js dependencies
 ```
 
-## Current Features
+## Current Development Status
 
-### Backend (FastAPI + Socket.IO)
-- RESTful API endpoints
-- Real-time WebSocket communication
-- Room-based chat system
-- User management
-- Message history
-- Health check endpoint
-- Interactive API documentation at `/docs`
+### ✅ Completed (Stage 1)
+- **Backend Setup:** FastAPI server with Socket.IO for real-time communication
+- **Mobile Setup:** React Native project structure ready
+- **Real-time Communication:** WebSocket events for lobby management
+- **API Endpoints:** Health check, lobby management, player connections
 
-### Frontend (React + Tailwind CSS)
-- User authentication (username entry)
-- Real-time chat interface
-- Multiple chat rooms
-- Room switching
-- Message history
-- Connection status indicator
-- Responsive design
-- Dark theme
+### 🚧 In Progress
+- **Mobile UI Components:** Converting web components to React Native
+- **Lobby System:** Create/join game lobbies with room codes
+- **Player Management:** Real-time player lists and connections
+
+### 📋 Next Steps (Following battle_app_dev_plan.md)
+- **Stage 2:** Complete lobby system with mobile interface
+- **Stage 3:** Scenario submission and voting system
+- **Stage 4:** AI judge integration with OpenAI
+- **Stage 5:** Scoring system and game flow
+- **Stage 6:** Advanced AI algorithms and social features
 
 ## API Endpoints
 
 - `GET /` - Root endpoint with API info
 - `GET /health` - Health check
 - `GET /docs` - Interactive API documentation
-- `GET /api/rooms` - Get list of active rooms
-- `GET /api/rooms/{room_id}` - Get room information
+- `GET /api/lobbies` - Get list of active game lobbies
+- `GET /api/lobbies/{lobby_id}` - Get lobby information
 - `GET /api/status` - Server status and statistics
 
 ## Socket.IO Events
 
 ### Client to Server
-- `join_room` - Join a chat room
-- `leave_room` - Leave a chat room
-- `send_message` - Send a message to a room
-- `get_room_messages` - Get recent room messages
+- `join_lobby` - Join a game lobby
+- `leave_lobby` - Leave a game lobby
+- `send_message` - Send message in lobby (temporary)
+- `get_lobby_messages` - Get lobby message history
 
 ### Server to Client
 - `connection_established` - Connection confirmation
-- `new_message` - New message received
-- `user_joined` - User joined room notification
-- `user_left` - User left room notification
-- `room_messages` - Room message history
+- `player_joined` - Player joined lobby notification
+- `player_left` - Player left lobby notification
+- `new_message` - New message in lobby
+- `lobby_messages` - Lobby message history
 - `error` - Error notifications
 
-## Development Workflow
+## Technology Stack
 
-**Every time you start working:**
+- **Backend:** Python, FastAPI, Socket.IO, Uvicorn
+- **Mobile:** React Native, React Navigation, Socket.IO Client
+- **Future:** OpenAI API, NumPy/SciPy for AI algorithms
+- **Database:** PostgreSQL (planned)
+- **Deployment:** Railway/Render (backend), App Store/Google Play (mobile)
 
-1. **Activate Python environment and start backend:**
-   ```bash
-   source venv/bin/activate  # (or venv\Scripts\activate on Windows)
-   python main.py
-   ```
+## Contributing
 
-2. **In a new terminal, start frontend:**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
+This is a collaborative project between team members. Follow the development plan in `battle_app_dev_plan.md` for structured progress.
 
-3. **Pull latest changes:**
-   ```bash
-   git pull origin main
-   ```
-
-**When you're done:**
-```bash
-# Stop servers with Ctrl+C
-deactivate  # Deactivate Python environment
-```
+1. Create feature branches for new development
+2. Test on both iOS and Android when possible
+3. Follow the stage-by-stage development approach
+4. Commit frequently with descriptive messages
 
 ## Troubleshooting
 
@@ -192,47 +190,44 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-**If Python command doesn't work:**
-- Try `python3` instead of `python`
-- Make sure Python 3.8+ is installed
+### Mobile Issues
+**If React Native setup fails:**
+- Ensure you have the latest Node.js version
+- For iOS: Verify Xcode is installed and updated
+- For Android: Ensure Android Studio and SDK are properly configured
 
-### Frontend Issues
-**If `npm install` fails:**
-```bash
-npm install --legacy-peer-deps
-```
+### iOS Development Options
+**Option 1: Traditional (Mac Required)**
+- Install Xcode on Mac
+- Full native development capabilities
+- Best performance and control
 
-**If `npm run dev` fails:**
-- Make sure Node.js 18+ is installed
-- Delete `node_modules` and run `npm install` again
+**Option 2: Expo (Cross-Platform)**
+- No Xcode needed initially
+- Test on real iPhone with Expo Go app
+- Cloud building for App Store deployment
+- Can migrate to React Native CLI later
 
-**If pages don't load:**
-- Check that both backend (`localhost:8000`) and frontend (`localhost:5173`) are running
-- Check browser console for errors
+**Option 3: Start Android First**
+- Develop Android version on Windows
+- Use Android Studio for testing
+- Add iOS development later with Mac access
 
-### General Issues
-**If virtual environment won't activate:**
-- On Windows: Use Command Prompt instead of Git Bash
-- Make sure you're in the project directory
+**Option 4: Cloud Building Services**
+- Develop on any platform
+- Use Expo EAS Build or similar services
+- Remote iOS building without local Mac/Xcode
+- Still need Mac for final testing and App Store submission
 
 **If Socket.IO connection fails:**
 - Ensure backend is running on `localhost:8000`
-- Check browser network tab for connection errors
-- Verify firewall isn't blocking the connection
+- Check that mobile app is connecting to correct IP address
+- For physical devices, use your computer's IP instead of localhost
 
-## Contributing
+## Game Development Roadmap
 
-1. Create a new branch for your feature
-2. Make your changes
-3. Test both backend and frontend thoroughly
-4. Commit and push to your branch
-5. Create a pull request
+See `battle_app_dev_plan.md` for the complete development timeline and detailed task breakdown.
 
-## Technology Stack
-
-- **Backend:** Python, FastAPI, Socket.IO, Uvicorn
-- **Frontend:** React, Vite, Tailwind CSS, Socket.IO Client
-- **Icons:** Lucide React
-- **Development:** Hot reload enabled for both frontend and backend
+**Current Focus:** Building the foundation lobby system for multiplayer game sessions.
 
 **Happy coding!**
