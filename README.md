@@ -19,12 +19,14 @@ Players compete in Kahoot-style prediction games where:
 - **For iOS development:** Mac with Xcode
 - **For Android development:** Android Studio
 
-## Backend Setup
+## Quick Start
 
-1. **Clone the repository**
+### Backend Setup
+
+1. **Clone and navigate to repository**
    ```bash
-   git clone https://github.com/haydendansereau88/Project2.git
-   cd Project2
+   git clone https://github.com/haydendansereau88/frenemies-battle-royale.git
+   cd frenemies-battle-royale
    ```
 
 2. **Set up Python virtual environment**
@@ -40,47 +42,38 @@ Players compete in Kahoot-style prediction games where:
    python -m venv venv
    venv\Scripts\activate
    ```
-   
-   *You should see `(venv)` appear in your terminal prompt*
 
-3. **Install Python dependencies**
+3. **Install dependencies and start server**
    ```bash
    pip install -r requirements.txt
-   ```
-
-4. **Start the backend server**
-   ```bash
    python main.py
    ```
    
-   The backend will run on `http://localhost:8000`
+   Backend runs on `http://localhost:8000`
 
-## Mobile Frontend Setup
+### Mobile Frontend Setup
 
-1. **Navigate to mobile app directory**
+1. **Navigate to mobile app and install dependencies**
    ```bash
    cd FrenemiesMobile
-   ```
-
-2. **Install React Native dependencies**
-   ```bash
    npm install
    ```
 
-3. **Install additional packages**
+2. **iOS Setup (Mac only - NEXT STEP NEEDED)**
    ```bash
-   npm install socket.io-client @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context react-native-vector-icons
-   ```
-
-4. **For iOS (Mac only):**
-   ```bash
+   # Install CocoaPods if not already installed
+   sudo gem install cocoapods
+   
+   # Install iOS dependencies
    cd ios
    pod install
    cd ..
+   
+   # Run on iOS simulator
    npx react-native run-ios
    ```
 
-5. **For Android:**
+3. **Android Setup**
    ```bash
    npx react-native run-android
    ```
@@ -89,14 +82,12 @@ Players compete in Kahoot-style prediction games where:
 
 **Start Backend:**
 ```bash
-# From project root
 source venv/bin/activate  # (or venv\Scripts\activate on Windows)
 python main.py
 ```
 
 **Start Mobile App:**
 ```bash
-# From project root
 cd FrenemiesMobile
 npx react-native run-ios    # or run-android
 ```
@@ -104,130 +95,172 @@ npx react-native run-ios    # or run-android
 ## Project Structure
 
 ```
-Project2/
-├── main.py                 # FastAPI backend server
-├── requirements.txt        # Python dependencies
-├── venv/                   # Python virtual environment
-├── battle_app_dev_plan.md  # Development roadmap
-└── FrenemiesMobile/        # React Native mobile app
-    ├── src/
-    │   ├── components/     # React Native components (to be built)
-    │   ├── screens/        # App screens (to be built)
-    │   └── services/       # API and Socket.IO services
-    ├── ios/                # iOS-specific files
-    ├── android/            # Android-specific files
-    └── package.json        # Node.js dependencies
+frenemies-battle-royale/
+├── main.py                    # FastAPI backend server
+├── requirements.txt           # Python dependencies
+├── venv/                      # Python virtual environment
+├── battle_app_dev_plan.md     # Development roadmap
+├── README.md                  # This file
+└── FrenemiesMobile/           # React Native mobile app
+    ├── App.tsx                # Main React Native app component
+    ├── package.json           # Node.js dependencies
+    ├── ios/                   # iOS-specific files
+    ├── android/               # Android-specific files
+    └── (React Native project structure)
 ```
 
 ## Current Development Status
 
-### ✅ Completed (Stage 1)
-- **Backend Setup:** FastAPI server with Socket.IO for real-time communication
-- **Mobile Setup:** React Native project structure ready
-- **Real-time Communication:** WebSocket events for lobby management
-- **API Endpoints:** Health check, lobby management, player connections
+### ✅ **COMPLETED - Stage 1: Project Setup**
+- **Backend Infrastructure:** FastAPI server with Socket.IO real-time communication
+- **Mobile Infrastructure:** React Native project with navigation libraries
+- **GitHub Integration:** Repository properly configured and browsable
+- **API Foundation:** Health check, basic lobby endpoints, WebSocket events
+- **Real-time Communication:** Socket.IO events for lobby management
 
-### 🚧 In Progress
-- **Mobile UI Components:** Converting web components to React Native
-- **Lobby System:** Create/join game lobbies with room codes
-- **Player Management:** Real-time player lists and connections
+### 🔄 **IN PROGRESS - iOS Development Setup**
+- **Xcode Configuration:** Installing/verifying Xcode and command line tools
+- **CocoaPods Setup:** iOS dependency management
+- **React Native iOS Testing:** Ensuring simulator works properly
 
-### 📋 Next Steps (Following battle_app_dev_plan.md)
-- **Stage 2:** Complete lobby system with mobile interface
+### 🎯 **NEXT - Stage 2: Core Lobby System**
+- **Room Code Generation:** 6-digit lobby codes
+- **Mobile Lobby Screens:** Create/join lobby interfaces
+- **Real-time Player Lists:** Live lobby participant updates
+- **Multi-device Testing:** Synchronization between phones
+
+### 📋 **Future Stages**
 - **Stage 3:** Scenario submission and voting system
 - **Stage 4:** AI judge integration with OpenAI
 - **Stage 5:** Scoring system and game flow
 - **Stage 6:** Advanced AI algorithms and social features
+- **Stage 7:** App Store deployment
 
 ## API Endpoints
 
+### Current Backend API
 - `GET /` - Root endpoint with API info
 - `GET /health` - Health check
-- `GET /docs` - Interactive API documentation
-- `GET /api/lobbies` - Get list of active game lobbies
-- `GET /api/lobbies/{lobby_id}` - Get lobby information
+- `GET /docs` - Interactive API documentation (Swagger)
+- `GET /api/rooms` - Get list of active chat rooms
+- `GET /api/rooms/{room_id}` - Get room information
 - `GET /api/status` - Server status and statistics
 
-## Socket.IO Events
+### Socket.IO Events (Real-time)
 
-### Client to Server
-- `join_lobby` - Join a game lobby
-- `leave_lobby` - Leave a game lobby
-- `send_message` - Send message in lobby (temporary)
-- `get_lobby_messages` - Get lobby message history
+**Client to Server:**
+- `join_room` - Join a game lobby
+- `leave_room` - Leave a game lobby
+- `send_message` - Send message in lobby
+- `get_room_messages` - Get lobby message history
 
-### Server to Client
+**Server to Client:**
 - `connection_established` - Connection confirmation
-- `player_joined` - Player joined lobby notification
-- `player_left` - Player left lobby notification
+- `user_joined` - Player joined lobby notification
+- `user_left` - Player left lobby notification
 - `new_message` - New message in lobby
-- `lobby_messages` - Lobby message history
+- `room_messages` - Lobby message history
 - `error` - Error notifications
 
 ## Technology Stack
 
+### Current Implementation
 - **Backend:** Python, FastAPI, Socket.IO, Uvicorn
 - **Mobile:** React Native, React Navigation, Socket.IO Client
-- **Future:** OpenAI API, NumPy/SciPy for AI algorithms
-- **Database:** PostgreSQL (planned)
+- **Real-time:** WebSocket connections via Socket.IO
+- **Development:** VS Code, Git, GitHub
+
+### Planned Additions
+- **AI/ML:** OpenAI API, NumPy, SciPy for battle algorithms
+- **Database:** PostgreSQL with SQLAlchemy
 - **Deployment:** Railway/Render (backend), App Store/Google Play (mobile)
-
-## Contributing
-
-This is a collaborative project between team members. Follow the development plan in `battle_app_dev_plan.md` for structured progress.
-
-1. Create feature branches for new development
-2. Test on both iOS and Android when possible
-3. Follow the stage-by-stage development approach
-4. Commit frequently with descriptive messages
 
 ## Troubleshooting
 
 ### Backend Issues
-**If `pip install -r requirements.txt` fails:**
+**If backend won't start:**
 ```bash
+# Ensure virtual environment is activated
+source venv/bin/activate  # (Mac/Linux)
+venv\Scripts\activate     # (Windows)
+
+# Update pip and reinstall dependencies
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
 ### Mobile Issues
+
+**iOS Setup (Current Focus):**
+- Ensure Xcode is installed and updated
+- Install Xcode Command Line Tools: `xcode-select --install`
+- Install CocoaPods: `sudo gem install cocoapods`
+- Run `pod install` in FrenemiesMobile/ios directory
+
 **If React Native setup fails:**
-- Ensure you have the latest Node.js version
-- For iOS: Verify Xcode is installed and updated
-- For Android: Ensure Android Studio and SDK are properly configured
+- Verify Node.js version (18+): `node --version`
+- Clear npm cache: `npm cache clean --force`
+- Delete node_modules and reinstall: `rm -rf node_modules && npm install`
 
-### iOS Development Options
-**Option 1: Traditional (Mac Required)**
-- Install Xcode on Mac
-- Full native development capabilities
-- Best performance and control
+**Android Development:**
+- Install Android Studio and configure SDK
+- Set up Android emulator or connect physical device
+- Ensure Android development environment variables are set
 
-**Option 2: Expo (Cross-Platform)**
-- No Xcode needed initially
-- Test on real iPhone with Expo Go app
-- Cloud building for App Store deployment
-- Can migrate to React Native CLI later
+### iOS Development Setup
 
-**Option 3: Start Android First**
-- Develop Android version on Windows
-- Use Android Studio for testing
-- Add iOS development later with Mac access
+**Native Development (Mac + Xcode + React Native CLI):**
+- ✅ Full access to native iOS features and performance
+- ✅ Complete control over build process and configuration
+- ✅ Direct integration with Xcode for debugging and testing
+- ✅ Best approach for production app development
 
-**Option 4: Cloud Building Services**
-- Develop on any platform
-- Use Expo EAS Build or similar services
-- Remote iOS building without local Mac/Xcode
-- Still need Mac for final testing and App Store submission
+### Socket.IO Connection Issues
+- Ensure backend is running on `http://localhost:8000`
+- Check mobile app connection URL in code
+- For physical devices, use computer's IP address instead of localhost
+- Verify firewall/network settings allow connections
 
-**If Socket.IO connection fails:**
-- Ensure backend is running on `localhost:8000`
-- Check that mobile app is connecting to correct IP address
-- For physical devices, use your computer's IP instead of localhost
+## Development Progress Tracking
 
-## Game Development Roadmap
+See `battle_app_dev_plan.md` for detailed task breakdown and timeline.
 
-See `battle_app_dev_plan.md` for the complete development timeline and detailed task breakdown.
+**Current Milestone:** Complete iOS development environment setup and begin Stage 2 lobby system development.
 
-**Current Focus:** Building the foundation lobby system for multiplayer game sessions.
+**Recent Achievements:**
+- ✅ Resolved GitHub submodule issues
+- ✅ FastAPI backend with WebSocket support operational
+- ✅ React Native project structure properly integrated
+- ✅ Basic real-time communication infrastructure complete
 
-**Happy coding!**
+**Immediate Goals:**
+- 🎯 Complete iOS/Xcode setup for React Native development
+- 🎯 Implement 6-digit lobby room codes
+- 🎯 Build first mobile lobby creation screen
+- 🎯 Test real-time lobby synchronization
+
+## Contributing
+
+This project follows a stage-by-stage development approach outlined in `battle_app_dev_plan.md`.
+
+### Development Workflow
+1. Create feature branches for new development
+2. Test on both iOS and Android when possible
+3. Follow the structured development stages
+4. Commit frequently with descriptive messages
+5. Keep documentation updated with progress
+
+### Code Standards
+- **Backend:** Follow FastAPI best practices, type hints, proper error handling
+- **Mobile:** React Native + TypeScript, component-based architecture
+- **Real-time:** Consistent Socket.IO event naming and error handling
+
+## License
+
+This project is in active development for educational and portfolio purposes.
+
+---
+
+**Happy coding! 🚀**
+
+*Next step: Complete iOS development setup and begin building lobby features.*

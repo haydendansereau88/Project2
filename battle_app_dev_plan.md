@@ -11,7 +11,7 @@
 
 ---
 
-## **Stage 1: Project Setup & Basic Infrastructure**
+## **Stage 1: Project Setup & Basic Infrastructure** - ✅ **COMPLETED**
 
 ### Task 1.1: Backend Setup - ✅ COMPLETED
 - [x] Create Python virtual environment
@@ -19,25 +19,36 @@
 - [x] Set up basic FastAPI server structure
 - [x] Create basic health check endpoint
 - [x] Set up development environment with hot reload
+- [x] WebSocket connection handling setup
+- [x] Basic lobby endpoints created
 
 ### Task 1.2: Mobile Frontend Setup - ✅ COMPLETED
 - [x] Create React Native app with CLI
 - [x] Install socket.io-client
 - [x] Set up basic React Native project structure
 - [x] Install navigation libraries
-- [ ] Create basic mobile screens (next step)
+- [x] Successfully integrated FrenemiesMobile into GitHub repository
+- [x] Resolved submodule issues - directory now fully browsable on GitHub
 
-### Task 1.3: Database Setup - 🚧 PENDING
+### Task 1.3: iOS Development Environment Setup - 🔄 **NEXT PRIORITY**
+- [ ] Install/verify Xcode installation
+- [ ] Install Xcode Command Line Tools
+- [ ] Install CocoaPods
+- [ ] Run `pod install` in ios/ directory
+- [ ] Test React Native iOS simulator setup
+- [ ] Verify `npx react-native run-ios` works
+
+### Task 1.4: Database Setup - 🚧 PENDING (can be done parallel to Stage 2)
 - [ ] Install PostgreSQL locally
 - [ ] Set up database connection with SQLAlchemy
 - [ ] Create basic database models (games, players, scenarios)
 - [ ] Set up Alembic for database migrations
 
-**Stage 1 Goal**: Have backend and mobile app communicating
+**Stage 1 Goal**: ✅ **ACHIEVED** - Backend and mobile app infrastructure ready, GitHub properly configured
 
 ---
 
-## **Stage 2: Core Lobby System**
+## **Stage 2: Core Lobby System** - 🎯 **CURRENT FOCUS**
 
 ### Task 2.1: Backend Lobby Logic - 🔄 IN PROGRESS
 - [x] Basic lobby endpoints created
@@ -45,19 +56,20 @@
 - [ ] Implement room code generation (6-digit codes)
 - [ ] Implement player join/leave lobby functionality
 - [ ] Create proper lobby state management
+- [ ] Add lobby data persistence (in-memory for now, DB later)
 
-### Task 2.2: Mobile Lobby Interface
+### Task 2.2: Mobile Lobby Interface - 🚧 PENDING
 - [ ] Create lobby creation screen
 - [ ] Build lobby joining screen with room code input
 - [ ] Design lobby waiting room (show connected players)
 - [ ] Implement real-time player list updates
 - [ ] Add basic error handling for invalid room codes
 
-### Task 2.3: WebSocket Integration
+### Task 2.3: WebSocket Integration - 🚧 PENDING
 - [ ] Set up WebSocket event handlers in mobile app
 - [ ] Implement real-time synchronization between all phones
 - [ ] Handle connection drops and reconnection logic
-- [ ] Test with multiple physical devices
+- [ ] Test with multiple physical devices (iOS simulator + real device)
 
 **Stage 2 Goal**: Friends can create/join lobbies and see each other in real-time on their phones
 
@@ -200,7 +212,8 @@
 
 ## **Development Timeline Estimate**
 
-- **Stage 1-2**: 2-3 weeks (Mobile setup + Lobbies)
+- **Stage 1**: ✅ **COMPLETE** (3 weeks actual)
+- **Stage 2**: 2-3 weeks (Lobby system + iOS setup)
 - **Stage 3**: 1-2 weeks (Scenario system)
 - **Stage 4**: 2-3 weeks (AI integration - most complex)
 - **Stage 5**: 2-3 weeks (Game flow + mobile polish)
@@ -209,20 +222,96 @@
 
 **Total Estimated Time**: 10-16 weeks for full development
 
-## **Key Libraries to Install**
+---
 
-### Backend Requirements
+## **Immediate Next Steps (Priority Order)**
+
+### 🚨 **CRITICAL - iOS Development Setup (Mac + Xcode + React Native CLI)**
+1. **Verify Xcode Installation**
+   ```bash
+   xcode-select --version
+   ```
+
+2. **Install Xcode Command Line Tools**
+   ```bash
+   xcode-select --install
+   ```
+
+3. **Install CocoaPods**
+   ```bash
+   sudo gem install cocoapods
+   ```
+
+4. **Install iOS Dependencies**
+   ```bash
+   cd FrenemiesMobile/ios
+   pod install
+   cd ..
+   ```
+
+5. **Test React Native iOS Setup**
+   ```bash
+   npx react-native run-ios
+   ```
+
+### 🎯 **THEN - Start Stage 2 Development**
+1. Implement 6-digit room code generation
+2. Create mobile lobby creation screen
+3. Build room joining interface
+4. Test real-time lobby synchronization
+
+---
+
+## **Updated Library Requirements**
+
+### Backend Requirements (Current - in requirements.txt)
 ```bash
-pip install fastapi uvicorn sqlalchemy psycopg2-binary alembic
-pip install python-socketio python-multipart
+fastapi==0.116.0
+uvicorn==0.35.0
+python-socketio==5.13.0
+python-multipart==0.0.20
+python-dotenv==1.1.1
+pydantic==2.11.7
+# ... (other dependencies already installed)
+```
+
+### Future Backend Requirements
+```bash
+# For Stage 3+ (AI and Database)
 pip install openai numpy scipy pandas
-pip install python-dotenv pydantic
+pip install sqlalchemy psycopg2-binary alembic
 ```
 
-### Mobile Frontend Requirements
+### Mobile Frontend Requirements (Already Installed)
 ```bash
-npm install socket.io-client
-npm install @react-navigation/native @react-navigation/stack
-npm install react-native-screens react-native-safe-area-context
-npm install react-native-vector-icons
+# Core React Native + Navigation
+@react-navigation/native
+@react-navigation/stack
+react-native-screens
+react-native-safe-area-context
+
+# Real-time Communication
+socket.io-client
+
+# UI Components (for future stages)
+react-native-vector-icons
 ```
+
+## **Current Project Status Summary**
+
+**✅ COMPLETED:**
+- FastAPI backend with WebSocket support
+- React Native project structure
+- GitHub repository properly configured
+- Basic lobby endpoints and Socket.IO events
+
+**🔄 IN PROGRESS:**
+- iOS development environment setup
+
+**🎯 NEXT UP:**
+- Complete iOS setup and test React Native
+- Implement room code generation
+- Build first mobile lobby screens
+- Establish real-time lobby synchronization
+
+**📍 YOU ARE HERE:** Ready to transition from setup to actual feature development!
